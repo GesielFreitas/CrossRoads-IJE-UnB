@@ -171,7 +171,7 @@ bool MonsterAI::has_ground() {
     ground_obj = Game::instance.collision_manager->checkCollision(
                  _main_game_object, "ground");
 
-    has_ground = false;
+    bool has_ground = false;
 
     if( ground_obj && dy >= 0 ) {
         if( dy > 0 ) {
