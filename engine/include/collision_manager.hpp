@@ -34,8 +34,8 @@ namespace engine {
 
         std::list <GameObject*>* collision_list;
 
-        SDL_Rect rect1;
-        SDL_Rect rect2;
+        SDL_Rect rectangle_one;
+        SDL_Rect rectangle_two;
         SDL_Rect result;
 
     };

@@ -50,15 +50,15 @@ GameObject* CollisionManager::checkCollision( GameObject* game_object,
 */
 bool CollisionManager::collide( GameObject* obj1, GameObject* obj2 ) {
   
-  rect1.x = obj1->main_positionX; 
-  rect1.y = obj1->main_positionY;
-  rect1.h = obj1->main_height;
-  rect1.w = obj1->main_width;
-  rect2.x = obj2->main_positionX;
-  rect2.y = obj2->main_positionY;
-  rect2.h = obj2->main_height;
-  rect2.w = obj2->main_width;
+  rectangle_one.x = obj1->main_positionX; 
+  rectangle_one.y = obj1->main_positionY;
+  rectangle_one.h = obj1->main_height;
+  rectangle_one.w = obj1->main_width;
+  rectangle_two.x = obj2->main_positionX;
+  rectangle_two.y = obj2->main_positionY;
+  rectangle_two.h = obj2->main_height;
+  rectangle_two.w = obj2->main_width;
 
-  return SDL_IntersectRect(&rect1, &rect2, &result);
+  return SDL_IntersectRect(&rectangle_one, &rectangle_two, &result);
 
 }
