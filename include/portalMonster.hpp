@@ -42,11 +42,37 @@ public:
 private:
     std::vector <GameObject*> m_monsters;
 
+/** 
+    
+    controls the time of the previous scene.
+
+*/        
     unsigned int timestep;
+
+/**
+    number monster of passed in portal
+
+*/
     unsigned int interator;
+
+/**
+
+    number monster of scene
+*/
     unsigned int monster_number;
 
+/**
+    
+    image of the backgrount in portal of monster
+
+*/
     ImageComponent *m_background;
+
+/**
+    
+    is position of the portal in camera
+
+*/    
     CameraPosition *m_portal_pos;
   
 };
