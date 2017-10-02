@@ -2,21 +2,21 @@
     \file restart.cpp
     This file implements the restart class
 */
-#include "restart.hpp"
+#include "restart_game.hpp"
 
 /**
     This method initiates the restart in the game.
     \return return a true value.
 */
 
-bool Restart::init(){return true;}
+bool RestartGame::init(){return true;}
 
 
 /**
     This method is responsible for updating que restart in game
 */
 
-void Restart::update(){
+void RestartGame::update(){
 
     if(Game::instance.keyboard->isKeyDown("enter")){
         Game::instance.change_scene("Main Menu");
@@ -27,4 +27,4 @@ void Restart::update(){
 
 }
 
-Restart::~Restart(){}
+RestartGame::~RestartGame(){}

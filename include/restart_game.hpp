@@ -2,8 +2,8 @@
     \file restart.hpp
     This file declares the restart class
 */
-#ifndef __RESTART_HPP__
-#define __RESTART_HPP__
+#ifndef __RESTART_GAME_HPP__
+#define __RESTART_GAME_HPP__
 
 #include <iostream>
 
@@ -19,12 +19,12 @@ using namespace engine;
     This class is responsible for restart in the game
 */
 
-class Restart : public Component{
+class RestartGame : public Component{
 public:
-    Restart( GameObject &main_game_object, std::string id ):
+    RestartGame( GameObject &main_game_object, std::string id ):
         Component( main_game_object, id ){}
 
-        ~Restart();
+        ~RestartGame();
 
         bool init();
         void update();

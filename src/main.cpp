@@ -10,7 +10,7 @@
 #include "stage1_scene.hpp"
 #include "monsterAI.hpp"
 #include "player.hpp"
-#include "restart.hpp"
+#include "restart_game.hpp"
 #include "fireball.hpp"
 #include "portalMonster.hpp"
 #include "cameraposition.hpp"
@@ -613,7 +613,7 @@ int main(int, char **){
     GameObject win_background("win_background");
     ImageComponent image_win (win_background, "image_win",
                               "assets/sprites/new_win.png");
-    Restart restart_button_win(win_background, "restart_button_win");
+    RestartGame restart_button_win(win_background, "restart_button_win");
 
     win_background.add_component(image_win);
     win_background.add_component(restart_button_win);
@@ -633,7 +633,7 @@ int main(int, char **){
                          "assets/sprites/LoseScreen.png", 4800/6, 600, 6);
     image_lose.setDelay(100);
 
-    Restart restart_button_lose(lose_background, "restart_button_lose");
+    RestartGame restart_button_lose(lose_background, "restart_button_lose");
 
     lose_background.add_component(image_lose);
     lose_background.add_component(restart_button_lose);
