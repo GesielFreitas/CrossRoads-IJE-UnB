@@ -33,10 +33,23 @@ namespace engine {
         bool collide( GameObject* obj1, GameObject* obj2 );
 
         std::list <GameObject*>* collision_list;
+/**
+    
+    retangles  of collision in game for verification 
 
+*/
+        
         SDL_Rect rectangle_one;
         SDL_Rect rectangle_two;
+
+/**
+
+    Result of collision in game true or false
+
+*/
+        
         SDL_Rect result;
+        
 
     };
 
