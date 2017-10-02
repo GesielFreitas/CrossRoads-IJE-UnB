@@ -2,8 +2,8 @@
     \file porta.hpp
     This file declares the porta class
 */
-#ifndef _PORTAL_HPP_
-#define _PORTAL_HPP_
+#ifndef _PORTAL_MONSTER_HPP_
+#define _PORTAL_MOSNTER_HPP_
 
 #include <iostream>
 #include <vector>
@@ -22,17 +22,17 @@ using namespace engine;
     This class is responsible for create a portal for monsters appear in the game
 */
 
-class Portal : public Component{
+class PortalMonster : public Component{
 
 public:
-    Portal( GameObject &main_game_object, std::string id, 
+    PortalMonster( GameObject &main_game_object, std::string id, 
             ImageComponent *background, CameraPosition *portal_pos):
         
         Component( main_game_object, id), 
         interator( 0 ), 
         m_background( background ), 
         m_portal_pos( portal_pos ){}
-        ~Portal();
+        ~PortalMonster();
 
         bool init();
     
@@ -42,12 +42,12 @@ public:
 private:
     std::vector <GameObject*> m_monsters;
 
-    unsigned int timestep = 0;
-    unsigned int interator = 0;
-    unsigned int monster_number = 0;
+    unsigned int timestep;
+    unsigned int interator;
+    unsigned int monster_number;
 
-    ImageComponent *m_background = NULL;
-    CameraPosition *m_portal_pos = NULL;
+    ImageComponent *m_background;
+    CameraPosition *m_portal_pos;
   
 };
 

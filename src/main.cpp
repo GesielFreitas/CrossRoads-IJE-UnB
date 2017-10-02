@@ -12,7 +12,7 @@
 #include "player.hpp"
 #include "restart.hpp"
 #include "fireball.hpp"
-#include "portal.hpp"
+#include "portalMonster.hpp"
 #include "cameraposition.hpp"
 #include "heart.hpp"
 #include "bossAI.hpp"
@@ -329,7 +329,7 @@ int main(int, char **){
     CameraPosition portal_pos(portal, "portal_pos", &backgroundForest,
                               600, 470);
 
-    Portal portal_logic(portal, "portal_logic", &backgroundForest, &portal_pos);
+    PortalMonster portal_logic(portal, "portal_logic", &backgroundForest, &portal_pos);
     portal.add_component(portal_img);
     portal.add_component(portal_logic);
     portal.add_component(portal_pos);
