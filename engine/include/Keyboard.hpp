@@ -70,6 +70,12 @@ namespace engine {
             */
             void create_keyboard_mapping();
 
+            bool key_present(std::string key);
+            void setJoyAxis(SDL_Event* event, int positive_key, int negative_key);
+            void setJoyAxisMotion(SDL_Event* event);
+            void setJoystickKeyUp(SDL_Event* event);
+            void setJoystickKeyDown(SDL_Event* event);
+
             /**
                 List of keyboard keys pressed by the player
             */

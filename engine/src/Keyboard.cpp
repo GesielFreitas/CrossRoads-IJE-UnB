@@ -31,6 +31,10 @@ void Keyboard::setKeys( SDL_Event* event ) {
 
     assert(event != NULL);
 
+    /**
+        Add key codes in list according to the type of action on the button
+        and the type of button.
+    */
     if( event -> type == SDL_KEYDOWN ) {
         keycodes_down.push_back( event -> key.keysym.sym );
     }
@@ -38,65 +42,13 @@ void Keyboard::setKeys( SDL_Event* event ) {
         keycodes_up.push_back( event -> key.keysym.sym );
     }
     else if( event -> type == SDL_JOYBUTTONDOWN ) {
-
-        if( ( ( int ) event -> jbutton.button ) == SPACE_JBUTTON ) {
-             keycodes_down.push_back( SDLK_SPACE );
-         } else if( ( ( int ) event -> jbutton.button ) == W_JBUTTON ) {
-            keycodes_down.push_back( SDLK_w );
-        } else if( ( ( int ) event -> jbutton.button ) == F_JBUTTON ) {
-            keycodes_down.push_back( SDLK_f );
-        } else if( ( ( int ) event -> jbutton.button ) == RETURN_JBUTTON ) {
-            keycodes_down.push_back( SDLK_RETURN );
-        } else {
-            Log::instance.error("Failed to identify joystick down action");
-        }
-
+        setJoystickKeyDown(event);
     }
     else if( event -> type == SDL_JOYBUTTONUP ) {
-
-        if( ( ( int ) event -> jbutton.button ) == SPACE_JBUTTON ) {
-            keycodes_up.push_back( SDLK_SPACE );
-        } else if( ( ( int ) event -> jbutton.button ) == W_JBUTTON ) {
-            keycodes_up.push_back( SDLK_w );
-        } else if( ( ( int ) event -> jbutton.button ) == F_JBUTTON ) {
-            keycodes_up.push_back( SDLK_f );
-        } else if( ( ( int ) event -> jbutton.button ) == RETURN_JBUTTON ) {
-            keycodes_up.push_back( SDLK_RETURN );
-        } else {
-            Log::instance.error("Failed to identify joystick up action");
-        }
+        setJoystickKeyUp(event);
     }
     else if( event -> type == SDL_JOYAXISMOTION ) {
-
-        if( event -> jaxis.axis == HORIZONTAL_JAXIS ) {
-
-            if( event -> jaxis.value > POSITIVE_JAXIS ) {
-                keycodes_down.push_back( SDLK_d );
-            } else {
-                keycodes_up.push_back( SDLK_d );
-            }
-
-            if( event -> jaxis.value < NEGATIVE_JAXIS ) {
-                keycodes_down.push_back( SDLK_a );
-            } else {
-                keycodes_up.push_back( SDLK_a );
-            }
-
-        } else if( event -> jaxis.axis == VERTICAL_JAXIS ) {
-            if( event -> jaxis.value > POSITIVE_JAXIS ) {
-                keycodes_down.push_back( SDLK_s );
-            } else {
-                keycodes_up.push_back( SDLK_s );
-            }
-
-            if( event -> jaxis.value < NEGATIVE_JAXIS ) {
-                keycodes_down.push_back( SDLK_w );
-            } else {
-                keycodes_up.push_back( SDLK_w );
-            }
-        } else {
-            Log::instance.error("Failed to identify joystick axis action");
-        }
+        setJoyAxisMotion(event);
     }
     else {
         Log::instance.error("Failed to identify control actions");
@@ -114,7 +66,7 @@ void Keyboard::setKeys( SDL_Event* event ) {
 */
 bool Keyboard::isKeyDown( std::string key ) {
 
-    if(m_button_code.count(key) != 0) {
+    if( key_present(key) ) {
 
         std::list<Uint8>::iterator m_key;
 
@@ -146,7 +98,7 @@ bool Keyboard::isKeyDown( std::string key ) {
 */
 bool Keyboard::isKeyUp( std::string key ) {
 
-    if(m_button_code.count(key) != 0) {
+    if( key_present(key) ) {
 
         std::list<Uint8>::iterator m_key;
 
@@ -430,4 +382,90 @@ void Keyboard::create_keyboard_mapping() {
     m_button_code["eject"] = SDLK_EJECT;
     m_button_code["sleep"] = SDLK_SLEEP;
 
+}
+
+/**
+    Switching between joystick buttons in key down event.
+*/
+void Keyboard::setJoystickKeyDown(SDL_Event* event) {
+
+    if( ((int) event->jbutton.button) == SPACE_JBUTTON ) {
+         keycodes_down.push_back(SDLK_SPACE);
+    } else if( ((int) event->jbutton.button) == W_JBUTTON ) {
+        keycodes_down.push_back(SDLK_w);
+    } else if( ((int) event -> jbutton.button) == F_JBUTTON ) {
+        keycodes_down.push_back(SDLK_f);
+    } else if( ((int) event -> jbutton.button) == RETURN_JBUTTON ) {
+        keycodes_down.push_back(SDLK_RETURN);
+    } else {
+        Log::instance.error("Failed to identify joystick down action");
+    }
+}
+
+/**
+    Switching between joystick buttons in key up event.
+*/
+void Keyboard::setJoystickKeyUp(SDL_Event* event) {
+
+    if( ( ( int ) event -> jbutton.button ) == SPACE_JBUTTON ) {
+        keycodes_up.push_back( SDLK_SPACE );
+    } else if( ( ( int ) event -> jbutton.button ) == W_JBUTTON ) {
+        keycodes_up.push_back( SDLK_w );
+    } else if( ( ( int ) event -> jbutton.button ) == F_JBUTTON ) {
+        keycodes_up.push_back( SDLK_f );
+    } else if( ( ( int ) event -> jbutton.button ) == RETURN_JBUTTON ) {
+        keycodes_up.push_back( SDLK_RETURN );
+    } else {
+        Log::instance.error("Failed to identify joystick up action");
+    }
+
+}
+
+/**
+    Switching between joystick axis.
+*/
+void Keyboard::setJoyAxisMotion(SDL_Event* event) {
+
+    if( event -> jaxis.axis == HORIZONTAL_JAXIS ) {
+
+        setJoyAxis(event, SDLK_d, SDLK_a);
+
+    } else if( event -> jaxis.axis == VERTICAL_JAXIS ) {
+
+        setJoyAxis(event, SDLK_s, SDLK_w);
+
+    } else {
+        Log::instance.error("Failed to identify joystick axis action");
+    }
+}
+
+
+/**
+    Relate the movement on the joystick axis with the corresponding key.
+*/
+void Keyboard::setJoyAxis(SDL_Event* event, int positive_key, int negative_key) {
+
+    if( event -> jaxis.value > POSITIVE_JAXIS ) {
+        keycodes_down.push_back( positive_key );
+    } else {
+        keycodes_up.push_back( positive_key );
+    }
+
+    if( event -> jaxis.value < NEGATIVE_JAXIS ) {
+        keycodes_down.push_back( negative_key );
+    } else {
+        keycodes_up.push_back( negative_key );
+    }
+}
+
+/**
+    Verifies that the key has been mapped.
+*/
+bool Keyboard::key_present(std::string key) {
+
+    if(m_button_code.count(key) != 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
